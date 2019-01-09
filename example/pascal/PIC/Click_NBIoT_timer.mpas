@@ -1,0 +1,39 @@
+{*
+
+Use mikroE Timer Calculator to generate proper timer configuration
+and timer ISR.
+
+https://www.mikroe.com/timer-calculator
+
+*}
+unit Click_NBIoT_timer;
+
+uses Click_NBIoT_types;
+
+procedure nbiot_configTimer(); 
+
+implementation
+
+procedure nbiot_configTimer(); 
+begin
+
+    T1CON := 0xC5; 
+    TMR1L := 0x06; 
+    GIE_bit := 1; 
+    TMR1IE_bit := 1; 
+
+end;
+
+procedure Interrupt(); 
+begin
+
+    if ((TMR1IF_bit <> 0)) then 
+    begin
+        nbiot_tick(); 
+        TMR1IF_bit := 0; 
+        TMR1L := 0x06; 
+    end; 
+
+end;
+
+end.

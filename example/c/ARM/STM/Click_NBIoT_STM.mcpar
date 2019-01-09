@@ -1,0 +1,91 @@
+[DEVICE]
+Name=STM32F107VC
+Clock=72000000
+[BUILD_TYPE]
+Value=0
+
+
+[MEMORY_MODEL]
+Value=0
+[ACTIVE_TAB]
+Value=Click_NBIoT_STM.c
+[USE_EEPROM]
+Value=0
+[USE_HEAP]
+Value=0
+[HEAP_SIZE]
+Value=0
+[EEPROM_DEFINITION]
+Value=
+[FILES]
+File0=Click_NBIoT_STM.c
+File1=..\..\..\..\library\__nbiot_driver.c
+Count=2
+[BINARIES]
+Count=0
+[IMAGES]
+Count=0
+ActiveImageIndex=-1
+[OPENED_FILES]
+File0=Click_NBIoT_STM.c
+File1=click_nbiot_config.h
+File2=click_nbiot_timer.h
+File3=..\..\..\..\library\__nbiot_driver.c
+File4=..\..\..\..\library\__nbiot_driver.h
+Count=5
+[EEPROM]
+Count=0
+[ACTIVE_COMMENTS_FILES]
+Count=0
+[OTHER_FILES]
+Count=0
+[SEARCH_PATH]
+Path0=..\..\..\..\library\HAL\
+Path1=..\..\..\..\library\
+Path2=C:\Users\Public\Documents\Mikroelektronika\mikroC PRO for ARM\Packages\mikroBUS Board Definition API\Uses\
+Count=3
+[HEADER_PATH]
+Path0=..\..\..\..\library\
+Path1=..\..\..\..\library\HAL\
+Path2=C:\Users\Public\Documents\Mikroelektronika\mikroC PRO for ARM\Packages\mikroBUS Board Definition API\Uses\
+Count=3
+[HEADERS]
+File0=..\..\..\..\library\__nbiot_driver.h
+File1=Click_NBIoT_config.h
+File2=Click_NBIoT_types.h
+Count=3
+[PLDS]
+File0=Click_NBIoT.pld
+Count=1
+[Useses]
+File0=Conversions
+File1=C_String
+File2=UART
+File3=easymx_v7_STM32F107VC
+Count=4
+[EXPANDED_NODES]
+0=Click_NBIoT_STM.mcpar
+4=Header Files
+Count=2
+[LIB_EXPANDED_NODES]
+0=mikroE Libraries
+1=System Libraries
+1045=Third Party Libraries
+2134=mikroBUS Board Definition API
+Count=5
+[PROGRAMMER_OPTIONS]
+Value=JTAG
+[PROGRAMMER_TYPE]
+Value=mikroE mikroProg
+[DEBUGGER_TYPE]
+Value=default
+[UAPD_OPTIONS]
+UAPD_RESET_TYPE=1
+UAPD_ERASE_TYPE=0
+UAPD_CONNECTION=0
+UAPD_SPEED=0
+UAPD_HALT_AFTER=0
+[AT_DEBUG_STARTUP]
+LOAD_BIN_TO_RAM=0
+START_EXEC_FROM_ADDR=0
+START_ADDR=-1

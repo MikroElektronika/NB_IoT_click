@@ -1,0 +1,169 @@
+{*
+Example for NBIoT Click
+
+    Date          : Nov 2017.
+    Author        : MikroE Team
+
+Test configuration AVR :
+    
+    MCU              : ATMEGA32
+    Dev. Board       : EasyAVR v7 
+    AVR Compiler ver : v7.0.1.0
+
+
+---
+
+Description :
+
+The application is composed of three sections :
+
+- System Initialization - Initializes all necessary GPIO pins, UART used for
+the communcation with NB IoT module and UART used for infromation logging
+- Application Initialization - Initializes driver, power on module and sends few
+command for the default module configuration
+- Application Task - Running in parallel core state machine.
+
+
+Additional Functions :
+
+All additional functions such as timer initialization and default handler. 
+
+Notes :
+
+- UART polling works much better with HFC enabled.
+- In case of usage of other MCUs Timer initialization must be adjusted according to your MCU.
+
+*}
+program Click_NBIOT_AVR;
+
+uses Click_NBIoT_types, Click_NBIoT_config, Click_NBIoT_timer;
+
+var
+    // COMMANDS	
+    _AT           : string[5] ;
+    ATI          : string[5] ;
+    ATE          : string[5] ;
+    AT_CFUN      : string[10];
+    AT_CIMI      : string[10];
+    AT_CGDCONT   : string[15];
+    AT_NCONFIG   : string[45];
+    AT_NCONFIG1  : string[40];
+    AT_NCONFIG2  : string[40];
+    AT_NBAND     : string[15];
+    AT_CGDCONT1  : string[60];
+    AT_CEREG     : string[15];
+    AT_COPS      : string[30];
+    AT_NSOCR     : string[40];
+    AT_NSOST     : string[40];
+    AT_NSOCL     : string[15];
+
+procedure nbiot_default_handler(rsp : ^uint8_t; evArgs : ^uint8_t);
+var
+    ptr_rsp  : ^char;
+
+begin
+    ptr_rsp := rsp + 2;
+    mikrobus_logWrite( ptr_rsp - 2, _LOG_TEXT );
+
+end;
+
+
+procedure systemInit(); 
+begin
+    _AT           := 'AT';
+    ATI          := 'ATI';
+    ATE          := 'ATE1';
+    AT_CFUN      := 'AT+CFUN=1';
+    AT_CIMI      := 'AT+CIMI';
+    AT_CGDCONT   := 'AT+CGDCONT?';
+    AT_NCONFIG   := 'AT+NCONFIG=CR_0354_0338_SCRAMBLING,TRUE';
+    AT_NCONFIG1  := 'AT+NCONFIG=CR_0859_SI_AVOID,TRUE';
+    AT_NCONFIG2  := 'AT+NCONFIG=AUTOCONNECT,FALSE';
+    AT_NBAND     := 'AT+NBAND=8';
+    AT_CGDCONT1  := 'AT+CGDCONT=1,"IP","mobile_operator_APN"';
+    AT_CEREG     := 'AT+CEREG=2';
+    AT_COPS      := 'AT+COPS=1,2,"12345"';
+    AT_NSOCR     := 'AT+NSOCR= DGRAM,17,16666,1';
+    AT_NSOST     := 'AT+NSOST=0,83.58.228.64,16666,2,ABCD';
+    AT_NSOCL     := 'AT+NSOCL=0';
+
+    mikrobus_gpioInit( _MIKROBUS1, _MIKROBUS_AN_PIN, _GPIO_INPUT );
+    mikrobus_gpioInit( _MIKROBUS1, _MIKROBUS_RST_PIN, _GPIO_OUTPUT );
+    mikrobus_uartInit(_MIKROBUS1, @_NBIOT_UART_CFG[0]); 
+    mikrobus_logInit(_LOG_USBUART, 9600); 
+
+end;
+
+procedure applicationInit(); 
+begin
+
+// TIMER INIT
+    nbiot_configTimer();  
+
+// DRIVER INIT
+    nbiot_uartDriverInit(T_NBIOT_P(@_MIKROBUS1_GPIO), T_NBIOT_P(@_MIKROBUS1_UART)); 
+    nbiot_coreInit(@nbiot_default_handler, 1500);
+
+// MODULE POWER ON
+    nbiot_hfcEnable(1); 
+    nbiot_modulePower(0); 
+
+// MODULE INIT
+    mikrobus_logWrite('--- Generic AT command ---', _LOG_LINE);
+    //Command: AT, Basic command
+    nbiot_cmdSingle( @_AT[0] );
+    //Command: ATE, Set Command Echo Mode
+    nbiot_cmdSingle( @ATE[0] );
+    Delay_1sec();
+    //Command: ATI, product information
+    nbiot_cmdSingle( @ATI[0] );
+    Delay_1sec();
+    //Command: AT+CFUN, Set UE Functionality
+    nbiot_cmdSingle( @AT_CFUN[0] );
+    Delay_1sec();
+    //Command: AT+CIMI, Request International Mobile Subscriber Identity
+    nbiot_cmdSingle( @AT_CIMI[0] );
+    Delay_1sec();
+    //Command: AT+CGDCONT, Define a PDP Context
+    nbiot_cmdSingle( @AT_CGDCONT[0] );
+    Delay_1sec();
+    mikrobus_logWrite('------------------------', _LOG_LINE);
+    mikrobus_logWrite('--- UDP server - AT command ---', _LOG_LINE);
+    //Command: AT+NCONFIG, Enable scrambling function
+    nbiot_cmdSingle( @AT_NCONFIG[0] );
+    nbiot_cmdSingle( @AT_NCONFIG1[0] );
+    nbiot_cmdSingle( @AT_NCONFIG2[0] );
+    //Command: AT+NBAND, set band 8=900 MHz, 20=800 MHz provided by operator
+    nbiot_cmdSingle( @AT_NBAND[0] );
+    //Command: AT+CGDCONT, Set mobile operator APN for PDP context
+    nbiot_cmdSingle( @AT_CGDCONT1[0] );
+    //Command: AT+CEREG, Enable network registration URCs
+    nbiot_cmdSingle( @AT_CEREG[0] );
+    //Command: AT+COPS, set MCC and MNC values provided by operator
+    nbiot_cmdSingle( @AT_COPS[0] );
+    //Command: AT+NSOCR, create an UDP socket
+    nbiot_cmdSingle( @AT_NSOCR[0] );
+    //Command: AT+NSOST, send UDP message
+    nbiot_cmdSingle( @AT_NSOST[0] );
+    //Command: AT+NSOCL, close socket
+    nbiot_cmdSingle( @AT_NSOCL[0] );
+    mikrobus_logWrite('------------------------', _LOG_LINE);
+
+end;
+
+procedure applicationTask(); 
+begin
+
+    nbiot_process(); 
+end;
+
+begin
+
+    systemInit(); 
+    applicationInit(); 
+    while (1) do 
+    begin 
+        applicationTask(); 
+    end;
+
+end.

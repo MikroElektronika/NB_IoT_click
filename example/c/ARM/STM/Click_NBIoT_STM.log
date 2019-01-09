@@ -1,0 +1,32 @@
+0	1	mikroCARM.exe -MSF -DBG -pSTM32F107VC -RA -BIN -LHF -DL -SSA -O11111114 -fo72 -N"D:\Clicks_git\N\NB-IoT_click\SW\example\c\ARM\STM\Click_NBIoT_STM.mcpar" -SP"C:\Users\Public\Documents\Mikroelektronika\mikroC PRO for ARM\Defs\" -SP"C:\Users\Public\Documents\Mikroelektronika\mikroC PRO for ARM\Uses\ST M3\" -SP"D:\Clicks_git\N\NB-IoT_click\SW\example\c\ARM\STM\" -SP"D:\Clicks_git\N\NB-IoT_click\SW\library\HAL\" -SP"D:\Clicks_git\N\NB-IoT_click\SW\library\" -SP"C:\Users\Public\Documents\Mikroelektronika\mikroC PRO for ARM\Packages\mikroBUS Board Definition API\Uses\" -IP"C:\Users\Public\Documents\Mikroelektronika\mikroC PRO for ARM\Uses\ST M3\" -IP"D:\Clicks_git\N\NB-IoT_click\SW\example\c\ARM\STM\" -IP"D:\Clicks_git\N\NB-IoT_click\SW\library\" -IP"D:\Clicks_git\N\NB-IoT_click\SW\library\HAL\" -IP"C:\Users\Public\Documents\Mikroelektronika\mikroC PRO for ARM\Packages\mikroBUS Board Definition API\Uses\" "Click_NBIoT_STM.c" "__nbiot_driver.c" "__Lib_Math.emcl" "__Lib_MathDouble.emcl" "__Lib_Delays.emcl" "__Lib_System_105_107.emcl" "__Lib_GPIO_32F10x_Defs.emcl" "__Lib_GPIO_32F10x.emcl" "__Lib_CString.emcl" "__Lib_Conversions.emcl" "__Lib_UART_123_45.emcl" "easymx_v7_STM32F107VC.emcl" "Click_NBIoT.pld"	 
+diagnostics: 0	122	Compilation Started	STM32F107VC.c
+diagnostics: 38838	123	Compiled Successfully	STM32F107VC.c
+diagnostics: 0	122	Compilation Started	__Lib_Delays.c
+diagnostics: 118	123	Compiled Successfully	__Lib_Delays.c
+hint: 66	1164	Variable 'cycles_div_by_10' has been eliminated by optimizer	__Lib_Delays.c
+hint: 87	1164	Variable 'NumberOfCyc' has been eliminated by optimizer	__Lib_Delays.c
+hint: 104	1164	Variable 'NumberOfCyc' has been eliminated by optimizer	__Lib_Delays.c
+diagnostics: 0	122	Compilation Started	__lib_gpio.h
+diagnostics: 814	123	Compiled Successfully	__Lib_GPIO_32F10x_Defs.c
+diagnostics: 0	122	Compilation Started	stdint.h
+diagnostics: 349	123	Compiled Successfully	easymx_v7_STM32F107VC.c
+diagnostics: 0	122	Compilation Started	stdint.h
+hint: 0	1004	interrupt handler (Timer_interrupt at 0x002C)	click_nbiot_timer.h
+diagnostics: 145	123	Compiled Successfully	Click_NBIoT_STM.c
+hint: 62	1164	Variable 'evArgs' has been eliminated by optimizer	Click_NBIoT_STM.c
+diagnostics: 0	122	Compilation Started	stdint.h
+warning: 161	1503	Result is not defined in function: 'DCE_getState'	__nbiot_driver.c
+diagnostics: 767	123	Compiled Successfully	__nbiot_driver.c
+hint: 217	1164	Variable 'tmp' has been eliminated by optimizer	__nbiot_driver.c
+hint: 135	1164	Variable 'tmp' has been eliminated by optimizer	__nbiot_driver.c
+hint: 298	1164	Variable 'tmp' has been eliminated by optimizer	__nbiot_driver.c
+hint: 309	1164	Variable 'tmp' has been eliminated by optimizer	__nbiot_driver.c
+hint: 707	1164	Variable 'tmp' has been eliminated by optimizer	__nbiot_driver.c
+diagnostics: 0	127	All files Compiled in 188 ms	 
+hint: 0	1144	Used RX: 16 (100%)   Free RX: 0 (0%)	Used RX: 16 (100%)   Free RX: 0 (0%)
+hint: 0	1144	Static RAM (bytes): 1660   Dynamic RAM (bytes): 63873	Static RAM (bytes): 1660   Dynamic RAM (bytes): 63873
+hint: 0	1144	Used ROM (bytes): 9384 (4%)  Free ROM (bytes): 252760 (96%)	Used ROM (bytes): 9384 (4%)  Free ROM (bytes): 252760 (96%)
+diagnostics: 0	125	Project Linked Successfully	Click_NBIoT_STM.mcpar
+diagnostics: 0	128	Linked in 234 ms	 
+diagnostics: 0	129	Project 'Click_NBIoT_STM.mcpar' completed: 1313 ms	 
+diagnostics: 0	103	Finished successfully: 08 okt 2018, 14:36:39	Click_NBIoT_STM.mcpar
